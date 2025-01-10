@@ -1,0 +1,88 @@
+package br.albatross.myhttpserver;
+
+public class MyHttpResponse {
+
+    private String version;
+    private int code;
+    private String status;
+    private String contentType;
+    private String body;
+
+    public MyHttpResponse() {
+        this.version = "HTTP/1.1";
+        this.code = 200;
+        this.status = "OK";
+    }
+    
+    public MyHttpResponse(String version, int code, String status, String contentType, String body) {
+        this.version = version;
+        this.code = code;
+        this.status = status;
+        this.contentType = contentType;
+        this.body = body;
+    }
+
+    public MyHttpResponse setVersion(String version) {
+        this.version = version;
+        return this;
+    }
+
+    public MyHttpResponse setCode(int code) {
+        this.code = code;
+        return this;
+    }
+
+    public MyHttpResponse setStatus(String status) {
+        this.status = status;
+        return this;
+    }
+
+    public MyHttpResponse setContentType(String contentType) {
+        this.contentType = contentType;
+        return this;
+    }
+
+    public MyHttpResponse setBody(String body) {
+        this.body = body;
+        return this;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public String getContentType() {
+        return contentType;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb
+            .append(version.concat(" ")).append(code).append(" ".concat(status))
+            .append(System.lineSeparator())
+            .append("Content-Type: ").append(contentType)
+            .append(System.lineSeparator())
+            .append(System.lineSeparator());
+        sb.append(body);
+
+        return sb.toString();
+    }
+
+    public byte[] toClientResponse() {
+        return this.toString().getBytes();
+    }
+
+}
