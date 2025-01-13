@@ -1,45 +1,48 @@
-#Maven
-target/
-pom.xml.tag
-pom.xml.releaseBackup
-pom.xml.versionsBackup
-release.properties
-.flattened-pom.xml
-
-# Eclipse
-.project
+**/target/
+/target/
+*/target/*
 .classpath
-.settings/
-bin/
+.project
+.settings
 
-# IntelliJ
-.idea
-*.ipr
+# Package Files #
+*.jar
+*.war
+*.ear
+
 *.iml
-*.iws
+*.idea
 
-# NetBeans
-nb-configuration.xml
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
 
-# Visual Studio Code
-.vscode
+### STS ###
+.apt_generated
+.classpath
 .factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
 
-# OSX
-.DS_Store
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
 
-# Vim
-*.swp
-*.swo
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
 
-# patch
-*.orig
-*.rej
-
-# Local environment
-.env
-
-# Plugin directory
-/.quarkus/cli/plugins/
-# TLS Certificates
-.certs/
+### VS Code ###
+.vscode/
+/.apt_generated_tests/
