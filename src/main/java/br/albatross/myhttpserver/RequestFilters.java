@@ -7,9 +7,9 @@ import java.util.List;
 
 public abstract class RequestFilters {
 
-    private static List<MyServerRequestFilter> filters;
+    private static List<MyRequestFilter> filters;
 
-    public static Iterable<MyServerRequestFilter> getThen(ServerSocket serverSocket) {
+    public static Iterable<MyRequestFilter> getThen(ServerSocket serverSocket) {
         if (filters == null) {
             filters = new LinkedList<>();
         }

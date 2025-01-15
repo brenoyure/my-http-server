@@ -8,7 +8,7 @@ import java.net.ServerSocket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ServerShutdownRequestFilter implements MyServerRequestFilter {
+public class ServerShutdownRequestFilter implements MyRequestFilter {
 
     private final ServerSocket serverSocket;
     private static final Logger log = Logger.getLogger(ServerShutdownRequestFilter.class.getName());;
