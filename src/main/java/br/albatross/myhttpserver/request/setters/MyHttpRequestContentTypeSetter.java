@@ -1,7 +1,9 @@
-package br.albatross.myhttpserver;
+package br.albatross.myhttpserver.request.setters;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import br.albatross.myhttpserver.request.MyHttpRequest;
 
 public class MyHttpRequestContentTypeSetter implements MyHttpRequestSetter {
 

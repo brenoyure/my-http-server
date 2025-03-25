@@ -1,4 +1,4 @@
-package br.albatross.myhttpserver;
+package br.albatross.myhttpserver.request.converters;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -1,4 +1,4 @@
-package br.albatross.myhttpserver;
+package br.albatross.myhttpserver.request.setters;
 
 import java.util.Collections;
 import java.util.LinkedList;

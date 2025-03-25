@@ -5,6 +5,14 @@ import java.net.ServerSocket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import br.albatross.myhttpserver.handlers.SocketClientConnectionHandler;
+import br.albatross.myhttpserver.request.MyHttpRequest;
+import br.albatross.myhttpserver.request.converters.MyServerRequestConverter;
+import br.albatross.myhttpserver.request.converters.MyServerRequestInputStreamToMyHttpRequestConverter;
+import br.albatross.myhttpserver.request.converters.MyServerRequestInputStreamtoStringConverter;
+import br.albatross.myhttpserver.request.converters.MyServerRequestStringToMyHttpRequestConverter;
+import br.albatross.myhttpserver.request.setters.MyHttpRequestSetters;
+
 public class Main {
 
     private static final byte FIXED_THREAD_POOL_SIZE = 5;

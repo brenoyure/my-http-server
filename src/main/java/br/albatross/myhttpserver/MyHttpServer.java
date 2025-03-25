@@ -8,6 +8,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Logger;
 
+import br.albatross.myhttpserver.handlers.SocketClientConnectionHandler;
+
 public class MyHttpServer implements MyServer {
 
     private static Logger log = Logger.getLogger(MyHttpServer.class.getName());

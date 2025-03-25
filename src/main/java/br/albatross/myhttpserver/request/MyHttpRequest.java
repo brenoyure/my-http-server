@@ -1,4 +1,4 @@
-package br.albatross.myhttpserver;
+package br.albatross.myhttpserver.request;
 
 public class MyHttpRequest {
 
@@ -6,10 +6,10 @@ public class MyHttpRequest {
     private String uri;
     private String host;
     private String contentType;
+    private String accept;
     private int contentLength;
     private String body;
     private String httpVersion;
-    private String accept;
 
     public MyHttpRequest setMethod(String method) {
         this.method = method;

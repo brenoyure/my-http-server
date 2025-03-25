@@ -1,4 +1,7 @@
-package br.albatross.myhttpserver;
+package br.albatross.myhttpserver.request.converters;
+
+import br.albatross.myhttpserver.request.MyHttpRequest;
+import br.albatross.myhttpserver.request.setters.MyHttpRequestSetter;
 
 public class MyServerRequestStringToMyHttpRequestConverter implements MyServerRequestConverter<String, MyHttpRequest> {
 

@@ -1,4 +1,4 @@
-package br.albatross.myhttpserver;
+package br.albatross.myhttpserver.response;
 
 import java.nio.charset.StandardCharsets;
 

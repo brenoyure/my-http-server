@@ -1,4 +1,4 @@
-package br.albatross.myhttpserver;
+package br.albatross.myhttpserver.request.filters;
 
 import java.net.ServerSocket;
 import java.util.Collections;

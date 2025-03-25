@@ -1,6 +1,8 @@
-package br.albatross.myhttpserver;
+package br.albatross.myhttpserver.request.converters;
 
 import java.io.InputStream;
+
+import br.albatross.myhttpserver.request.MyHttpRequest;
 
 public class MyServerRequestInputStreamToMyHttpRequestConverter implements MyServerRequestConverter<InputStream, MyHttpRequest> {
 
