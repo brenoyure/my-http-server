@@ -43,10 +43,11 @@ public class MyHttpServer implements MyServer {
             if (threadsInUse.get() < FIXED_THREAD_POOL_SIZE) {
                 executorService.submit(() -> {
                     try {
-                        threadsInUse.incrementAndGet();
                         Socket clientSocket = serverSocket.accept();
+                        threadsInUse.incrementAndGet();
                         clientSocket.setSoTimeout((int) this.clientConnectionTimeout);
                         clientConnectionHandler.handle(clientSocket);
+                        clientSocket.close();
                         threadsInUse.decrementAndGet();
                     } catch (IOException e) {
                         e.printStackTrace();
