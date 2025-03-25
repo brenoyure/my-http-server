@@ -15,6 +15,7 @@ public abstract class MyHttpRequestSetters {
             add(new MyHttpRequestHostSetter());
             add(new MyHttpRequestContentLengthSetter());
             add(new MyHttpRequestContentTypeSetter());
+            add(new MyHttpRequestAcceptSetter());
             add(new MyHttpRequestBodySetter());
 
         }

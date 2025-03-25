@@ -9,6 +9,7 @@ public class MyHttpRequest {
     private int contentLength;
     private String body;
     private String httpVersion;
+    private String accept;
 
     public MyHttpRequest setMethod(String method) {
         this.method = method;
@@ -34,6 +35,11 @@ public class MyHttpRequest {
         this.contentType = contentType;
         return this;
     }
+
+    public MyHttpRequest setAccept(String accept) {
+        this.accept = accept;
+        return this;
+    }    
 
     public MyHttpRequest setContentLength(int contentLength) {
         this.contentLength = contentLength;
@@ -63,6 +69,10 @@ public class MyHttpRequest {
 
     public String getContentType() {
         return contentType;
+    }
+
+    public String getAccept() {
+        return accept;
     }
 
     public int getContentLength() {

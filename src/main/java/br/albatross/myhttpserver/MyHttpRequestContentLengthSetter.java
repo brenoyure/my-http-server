@@ -1,6 +1,7 @@
 package br.albatross.myhttpserver;
 
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MyHttpRequestContentLengthSetter implements MyHttpRequestSetter {
@@ -14,16 +15,20 @@ public class MyHttpRequestContentLengthSetter implements MyHttpRequestSetter {
 
     @Override
     public void setRequestField(String request, MyHttpRequest myHttpRequest) {
-        String contentLength = pattern.matcher(request).group(CONTENT_LENGTH_CAPTURE_GROUP);
-        if (contentLength != null && !contentLength.isBlank()) {
-            try {
-                myHttpRequest.setContentLength(Integer.parseInt(contentLength));
-            } catch (NumberFormatException e) {
-                myHttpRequest.setContentLength(0);
-                log.warning("An error ocurred when trying to set the Content Length header value, setting it to 0");
-                e.printStackTrace();
+        Matcher requestMatcher = pattern.matcher(request);
+        if (requestMatcher.find()) {
+            String contentLength = requestMatcher.group(CONTENT_LENGTH_CAPTURE_GROUP);
+            if (contentLength != null && !contentLength.isBlank()) {
+                try {
+                    myHttpRequest.setContentLength(Integer.parseInt(contentLength));
+                } catch (NumberFormatException e) {
+                    myHttpRequest.setContentLength(0);
+                    log.warning("An error ocurred when trying to set the Content Length header value, setting it to 0");
+                    e.printStackTrace();
+                }
             }
         }
+        
         
     }
 

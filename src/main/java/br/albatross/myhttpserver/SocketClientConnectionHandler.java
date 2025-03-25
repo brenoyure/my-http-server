@@ -1,5 +1,6 @@
 package br.albatross.myhttpserver;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -18,26 +19,38 @@ public class SocketClientConnectionHandler {
     }
 
     public void handle(Socket clientSocket) {
-        try (OutputStream clientOutputStream = clientSocket.getOutputStream()) {
+        
             log.info("Recebido de: " + clientSocket.getRemoteSocketAddress());
-            MyHttpRequest httpRequest = requestConverter.convert(clientSocket.getInputStream());
-            System.out.println(httpRequest.getMethod());
-            System.out.println(httpRequest.getUri());
-            System.out.println(httpRequest.getHttpVersion());
-            System.out.println(httpRequest.getContentType());
-            System.out.println(httpRequest.getContentLength());
-            System.out.println(httpRequest.getBody());
+            MyHttpRequest httpRequest = null;            
+            try(InputStream clientInputStream = clientSocket.getInputStream();
+                OutputStream clientOutputStream = clientSocket.getOutputStream()) {
+                httpRequest = requestConverter.convert(clientInputStream);
+                MyHttpResponse httpResponse = new MyHttpResponse(
+                        "HTTP/1.1", 
+                        200, 
+                        "OK", 
+                        httpRequest.getAccept(), 
+                        httpRequest.getBody());
 
-            clientOutputStream.write(
-                    new MyHttpResponse(
-                            "HTTP/1.1", 
-                            200, 
-                            "OK", 
-                            "text/html", 
-                            httpRequest.getBody().concat(" --- Modified by br.albatross.MyHttpServer xD")).toClientResponse());
+                byte[] responseByteArray = httpResponse.toClientResponse();
 
-           } catch (IOException e) { throw new RuntimeException(e); }
+                try (ByteArrayInputStream bis = new ByteArrayInputStream(responseByteArray)) {
+                    byte[] bff = new byte[1024];
+                    int length = bff.length;
+                
+                    int readBytes = bis.read(bff, 0, length);
+                    clientOutputStream.write(bff, 0, readBytes);
+                    while (readBytes != -1 && readBytes == length) {
+                        readBytes = bis.read(bff, 0, readBytes);
+                        clientOutputStream.write(bff, 0, readBytes);
+                    }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
 
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

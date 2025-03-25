@@ -1,5 +1,6 @@
 package br.albatross.myhttpserver;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MyHttpRequestContentTypeSetter implements MyHttpRequestSetter {
@@ -11,7 +12,11 @@ public class MyHttpRequestContentTypeSetter implements MyHttpRequestSetter {
 
     @Override
     public void setRequestField(String request, MyHttpRequest myHttpRequest) {
-        myHttpRequest.setContentType(pattern.matcher(request).group(CONTENT_TYPE_CAPTURE_GROUP));
+        Matcher requestMatcher = pattern.matcher(request);
+        if (requestMatcher.find()) {
+            myHttpRequest.setContentType(requestMatcher.group(CONTENT_TYPE_CAPTURE_GROUP));
+        }
+        
     }
 
 }

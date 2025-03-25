@@ -1,5 +1,6 @@
 package br.albatross.myhttpserver;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MyHttpRequestHostSetter implements MyHttpRequestSetter {
@@ -10,7 +11,9 @@ public class MyHttpRequestHostSetter implements MyHttpRequestSetter {
 
     @Override
     public void setRequestField(String request, MyHttpRequest myHttpRequest) {
-        myHttpRequest.setHost(pattern.matcher(request).group(HOST_CAPTURE_GROUP));
+        Matcher requestMatcher = pattern.matcher(request);
+        requestMatcher.find();
+        myHttpRequest.setHost(requestMatcher.group(HOST_CAPTURE_GROUP));
     }
 
 }

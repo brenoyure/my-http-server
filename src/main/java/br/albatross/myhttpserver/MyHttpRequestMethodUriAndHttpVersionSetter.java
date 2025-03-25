@@ -17,6 +17,7 @@ public class MyHttpRequestMethodUriAndHttpVersionSetter implements MyHttpRequest
     @Override
     public void setRequestField(String request, MyHttpRequest myHttpRequest) {
         Matcher requestMatcher = pattern.matcher(request);
+        requestMatcher.find();
         myHttpRequest
             .setMethod(requestMatcher.group(METHOD_CAPTURE_GROUP))
             .setUri(requestMatcher.group(URI_CAPTURE_GROUP))

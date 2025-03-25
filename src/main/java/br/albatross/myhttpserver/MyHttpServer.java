@@ -3,6 +3,7 @@ package br.albatross.myhttpserver;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.time.Duration;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Logger;
@@ -10,7 +11,7 @@ import java.util.logging.Logger;
 public class MyHttpServer implements MyServer {
 
     private static Logger log = Logger.getLogger(MyHttpServer.class.getName());
-    private static final byte FIXED_THREAD_POOL_SIZE = 2;
+    private static final byte FIXED_THREAD_POOL_SIZE = 5;
     private static final AtomicInteger threadsInUse = new AtomicInteger(0);
 
     private final ServerSocket serverSocket;
@@ -49,6 +50,12 @@ public class MyHttpServer implements MyServer {
                         e.printStackTrace();
                     }
                 });
+            }
+            try {
+                Thread.sleep(Duration.ofMillis(500l));
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
             }
         }
     }

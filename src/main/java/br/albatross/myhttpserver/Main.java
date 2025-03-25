@@ -7,7 +7,7 @@ import java.util.concurrent.Executors;
 
 public class Main {
 
-    private static final byte FIXED_THREAD_POOL_SIZE = 2;
+    private static final byte FIXED_THREAD_POOL_SIZE = 5;
     private static final short CLIENT_SOCKET_TIMEOUT = 10000;
     private static final ExecutorService SERVER_THREAD_POOL = Executors.newFixedThreadPool(FIXED_THREAD_POOL_SIZE);
 

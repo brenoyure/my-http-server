@@ -1,5 +1,7 @@
 package br.albatross.myhttpserver;
 
+import java.nio.charset.StandardCharsets;
+
 public class MyHttpResponse {
 
     private String version;
@@ -12,13 +14,14 @@ public class MyHttpResponse {
         this.version = "HTTP/1.1";
         this.code = 200;
         this.status = "OK";
+        this.contentType = "text/plain";
     }
-    
+
     public MyHttpResponse(String version, int code, String status, String contentType, String body) {
         this.version = version;
         this.code = code;
         this.status = status;
-        this.contentType = contentType;
+        this.contentType = (contentType == null || contentType.isBlank()) ? "text/plain" : contentType;
         this.body = body;
     }
 
@@ -82,7 +85,7 @@ public class MyHttpResponse {
     }
 
     public byte[] toClientResponse() {
-        return this.toString().getBytes();
+        return this.toString().getBytes(StandardCharsets.UTF_8);
     }
 
 }
