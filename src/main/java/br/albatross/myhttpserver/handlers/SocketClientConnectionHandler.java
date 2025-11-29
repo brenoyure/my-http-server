@@ -35,14 +35,14 @@ public class SocketClientConnectionHandler {
                     "HTTP/1.1", 
                     200, 
                     "OK", 
-                    httpRequest.getAccept(), 
+                    "text/html; charset=UTF-8", 
                     httpRequest.getBody());
 
             URL webResource = getClass().getClassLoader().getResource(httpRequest.getUri().replaceFirst("/", ""));
             if (webResource == null) {
                 httpResponse.setCode(404);
                 httpResponse.setStatus("NOT FOUND");
-                httpResponse.setContentType("text/html");
+                httpResponse.setContentType("text/html; charset=UTF-8");
                 httpResponse.setBody("<html><h1>404 - NOT FOUND</h1></html>");
                 writeHttpResponseToClientSocketOutputStream(clientOutputStream, httpResponse);
                 return;

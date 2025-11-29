@@ -1,6 +1,9 @@
 package br.albatross.myhttpserver.response;
 
 import java.nio.charset.StandardCharsets;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 
 public class MyHttpResponse {
 
@@ -75,6 +78,12 @@ public class MyHttpResponse {
         StringBuilder sb = new StringBuilder();
         sb
             .append(version.concat(" ")).append(code).append(" ".concat(status))
+            .append(System.lineSeparator())
+            .append("Date: ").append( OffsetDateTime.now(ZoneOffset.UTC).format(DateTimeFormatter.RFC_1123_DATE_TIME) )
+            .append(System.lineSeparator())
+            .append("Server: Albatross MyHttpServer 1.0")
+            .append(System.lineSeparator())
+            .append("X-Content-Type-Options: nosniff")
             .append(System.lineSeparator())
             .append("Content-Type: ").append(contentType)
             .append(System.lineSeparator())
