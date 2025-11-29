@@ -12,7 +12,7 @@ import br.albatross.myhttpserver.handlers.SocketClientConnectionHandler;
 
 public class MyHttpServer implements MyServer {
 
-    private static Logger log = Logger.getLogger(MyHttpServer.class.getName());
+    private static final Logger log = Logger.getLogger(MyHttpServer.class.getName());
     private static final byte FIXED_THREAD_POOL_SIZE = 5;
     private static final AtomicInteger threadsInUse = new AtomicInteger(0);
 
@@ -41,16 +41,20 @@ public class MyHttpServer implements MyServer {
         log.info("MyHttpServer started on port: " + serverSocket.getLocalPort());
         while (isRunning()) {
             if (threadsInUse.get() < FIXED_THREAD_POOL_SIZE) {
-                executorService.submit(() -> {
-                    try {
-                        Socket clientSocket = serverSocket.accept();
+                executorService.execute(() -> {
+                    try (Socket clientSocket = serverSocket.accept()) {
                         threadsInUse.incrementAndGet();
                         clientSocket.setSoTimeout((int) this.clientConnectionTimeout);
+                        log.info("Handling client socket...");
                         clientConnectionHandler.handle(clientSocket);
-                        clientSocket.close();
-                        threadsInUse.decrementAndGet();
+                        log.info("Handling client socket sucessful!!!");
                     } catch (IOException e) {
+                        log.severe("Handling client socket FAILED!!!");
                         e.printStackTrace();
+                    } finally {
+                        threadsInUse.decrementAndGet();
+                        log.info("Closing Handling client socket sucessful!!!");
+                        
                     }
                 });
             }

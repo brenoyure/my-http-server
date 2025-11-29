@@ -3,10 +3,12 @@ package br.albatross.myhttpserver.request.converters;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.logging.Logger;
 
 public class MyServerRequestInputStreamtoStringConverter implements MyServerRequestConverter<InputStream, String> {
 
     private static final int BYTE_BUFFER_DEFAULT_SIZE = 1024;
+    private final Logger logger = Logger.getLogger(this.getClass().getName());
 
     public String convert(InputStream inputStream) {
         byte[] bff = new byte[BYTE_BUFFER_DEFAULT_SIZE];
@@ -14,11 +16,11 @@ public class MyServerRequestInputStreamtoStringConverter implements MyServerRequ
         int length = bff.length;
 
         int readBytes = 0;
+
         try {
             readBytes = inputStream.read(bff, off, length);
         } catch (IOException e) {
-            System.err.println("An error occurred when first trying to read client socket inputstream");
-            throw new RuntimeException(e);
+            logger.severe("Error when starting to read inputstream... " + e.getMessage());
         }
 
         if (readBytes < length) {
@@ -33,8 +35,8 @@ public class MyServerRequestInputStreamtoStringConverter implements MyServerRequ
                 readBytes = inputStream.read(bff, off, readBytes);
                 sb.append(new String(bff, off, readBytes, StandardCharsets.UTF_8));
             } catch (IOException e) {
-                System.err.println("An error occurred when reading client socket InputStream");
-                throw new RuntimeException(e);                
+                logger.severe("An error occurred when converting ClientSocketInputStream to TextString");
+                e.getCause().printStackTrace();
             }
         }
 
